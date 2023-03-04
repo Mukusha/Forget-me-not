@@ -2,16 +2,14 @@ package com.smile.forgetmenot.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.sql.Timestamp;
-
 
 @Data
 @Entity
 @Table(name = "notes")
 public class Note {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
     private String subjectNotes;
     private String fullTextNotes;

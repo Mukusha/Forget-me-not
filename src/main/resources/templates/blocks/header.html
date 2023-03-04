@@ -1,0 +1,54 @@
+<div th:fragment="header">
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/blog">
+        <img src="https://github.com/Mukusha/Notes/blob/Created-jar/src/main/resources/com/note/picture/note.png?raw=true"  width="50" height="35">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span>меню</span>
+      </button>
+      <div  class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-5 mb-lg-0" >
+          <li class="nav-item">
+            <a class="nav-link disabled" text="хз что"> </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/notes">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/notes/add">Добавить заметку</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Вид</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Настройки
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">- Тема</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" >- Сортировка заметок по умолчанию</a></li>
+              <li><a class="dropdown-item" href="#">- Сортировать по цвету</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">- Корзина</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">- Статистика</a></li>
+              <li><a class="dropdown-item" href="#">- О программе</a></li>
+            </ul>
+          </li>
+
+        </ul>
+        <div>
+          <form action="/notes" method="post" style="float: right">
+            <input  name="key" placeholder="Введите ключевые слова " type="text" />
+            <button type="submit" class="btn btn-outline-success me-2" title="Поиск осуществляется по теме и полному тексту заметки ">Поиск</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+</div>
