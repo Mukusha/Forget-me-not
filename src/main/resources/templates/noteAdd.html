@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/backgroundStyle.css">
 </head>
 <body >
-<header th:insert="/blocks/header :: header"></header>
+<header th:insert="~{/blocks/header :: header}"></header>
 
 <div class="row g-3 align-items-center">
     <div class="col-auto">
@@ -42,6 +42,6 @@
 
 <label  class="col-form-label">сохранить</label>
 
-<div th:insert="/blocks/footer :: footer"></div>
+<div th:insert="~{/blocks/footer::footer}"></div>
 </body>
 </html>

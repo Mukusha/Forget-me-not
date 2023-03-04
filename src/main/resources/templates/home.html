@@ -10,7 +10,7 @@
 </head>
 <body >
 
-<header th:insert="/blocks/header :: header"></header>
+<header th:insert="~{/blocks/header :: header}"></header>
 
 
 
@@ -26,11 +26,12 @@
     </div>
 
     <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option selected>Сортировка по умолчанию</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option selected>Сортировка по дате изменения</option>
+        <option value="1">Сортировка по дате создания</option>
+        <option value="2">Сортировка по алфавиту</option>
+        <option value="3">Сортировка по цвету</option>
     </select>
+     </br>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div th:each = "el : ${notes}" >
@@ -70,7 +71,7 @@
 
 </div>
 
-<div th:insert="/blocks/footer :: footer"></div>
+<div th:insert="~{/blocks/footer::footer}"></div>
 
 </body>
 </html>

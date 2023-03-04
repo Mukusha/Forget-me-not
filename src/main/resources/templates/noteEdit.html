@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/backgroundStyle.css">
 </head>
 <body >
-<header th:insert="/blocks/header :: header"></header>
+<header th:insert="~{/blocks/header :: header}"></header>
 
 
 <div class="row g-3 align-items-center">
@@ -41,10 +41,12 @@
     <input class="form-control" type="file" id="formFileMultiple" multiple>
 </div>
 
-<label  class="col-form-label">сохранить</label>
-
 <label >В ряд уменьшенные фото и возможность удалять </label>
 
-<div th:insert="/blocks/footer :: footer"></div>
+<label  class="col-form-label">сохранить</label>
+
+
+
+<div th:insert="~{/blocks/footer::footer}"></div>
 </body>
 </html>
