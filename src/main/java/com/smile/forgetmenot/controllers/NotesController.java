@@ -33,7 +33,9 @@ public class NotesController {
 
     //!
     @PostMapping("/note/{id}/edit")
-    public String editNotePost(@PathVariable(value = "id") long id, Note note, Model model) {
+    public String editNotePost(@PathVariable(value = "id") long id,
+                               Note note,
+                               Model model) {
         noteService.updateNote(id,note);
         return "redirect:/notes";
     }
@@ -56,4 +58,9 @@ public class NotesController {
         return "redirect:/notes";
     }
 
+    @GetMapping("/note/{id}/important")
+    public String importantNote(@PathVariable(value = "id") long id) {
+        noteService.setImportantNoteById(id);
+        return "redirect:/notes";
+    }
 }

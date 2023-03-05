@@ -14,7 +14,7 @@ public class Note {
     private Long id;
     private String subjectNotes;
     private String fullTextNotes;
-
+    private boolean isImportant;
     private Timestamp dateModification;
     private Timestamp dateCreate;
 

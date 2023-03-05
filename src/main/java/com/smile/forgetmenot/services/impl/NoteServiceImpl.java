@@ -43,6 +43,7 @@ public class NoteServiceImpl implements NoteService {
 
         note.setSubjectNotes(noteNew.getSubjectNotes());
         note.setFullTextNotes(noteNew.getFullTextNotes());
+        note.setImportant(noteNew.isImportant());
         note.setDateModification(new Timestamp(System.currentTimeMillis()));
 
         noteRepository.save(note);
@@ -75,5 +76,12 @@ public class NoteServiceImpl implements NoteService {
     public void removeNoteById(long id) {
         Note note=noteRepository.findById(id).orElseThrow();
         noteRepository.delete(note);
+    }
+
+    @Override
+    public void setImportantNoteById(long id) {
+        Note note=noteRepository.findById(id).orElseThrow();
+        note.setImportant(!note.isImportant());
+        noteRepository.save(note);
     }
 }

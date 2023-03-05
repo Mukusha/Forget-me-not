@@ -58,4 +58,11 @@ public interface NoteService {
      * @param id - id  заметки
      */
     void removeNoteById(long id);
+
+    /**
+     * Изменить важность заметки по ее id
+     *
+     * @param id - id  заметки
+     */
+    void setImportantNoteById(long id);
 }

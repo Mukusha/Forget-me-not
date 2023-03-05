@@ -53,8 +53,8 @@
 
                             <a th:href="'/note/'+${el.id}+'/important'" class="btn btn-outline-dark btn-sm" title="пометить как важное"
                                data-bs-toggle="popover"  data-bs-trigger="hover focus">
-                                <img width=20 height=20
-                                     src="https://e7.pngegg.com/pngimages/131/551/png-clipart-desktop-computer-icons-a-notice-miscellaneous-angle.png">
+                                <img th:if=" ${el.isImportant}" width=20 height=20 src="https://img.icons8.com/color/256/filled-star.png">
+                                <img th:if="not  ${el.isImportant}" width=20 height=20 src="https://img.icons8.com/ios/256/christmas-star.png">
                             </a>
 
 
@@ -64,8 +64,7 @@
 
                             <a th:href="'/note/'+${el.id}+'/delete'" class="btn btn-outline-dark btn-sm" title="Удалить"
                                data-bs-toggle="popover"  data-bs-trigger="hover focus">
-                                <img width=20 height=20
-                                     src="https://e7.pngegg.com/pngimages/160/341/png-clipart-rubbish-bins-waste-paper-baskets-recycling-bin-computer-icons-others-miscellaneous-text.png">
+                                <img width=20 height=20 src="https://img.icons8.com/material-outlined/256/delete-trash.png">
                             </a>
 
                         </div>
