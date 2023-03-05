@@ -2,6 +2,7 @@ package com.smile.forgetmenot.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.sql.Timestamp;
 
 @Data
@@ -14,7 +15,7 @@ public class Note {
     private String subjectNotes;
     private String fullTextNotes;
 
-    private Timestamp dateModification ;
+    private Timestamp dateModification;
     private Timestamp dateCreate;
 
     public Note() {
@@ -24,6 +25,6 @@ public class Note {
         this.subjectNotes = subjectNotes;
         this.fullTextNotes = fullTextNotes;
         this.dateCreate = new Timestamp(System.currentTimeMillis());
-        this.dateModification=this.dateCreate;
+        this.dateModification = this.dateCreate;
     }
 }

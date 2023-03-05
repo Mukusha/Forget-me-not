@@ -18,14 +18,14 @@ public class HomeController {
 
 
     @GetMapping("/notes")
-    public  String home(Model model){
+    public String home(Model model) {
 
-        model.addAttribute("notes",noteService.getAllNotes()); //вывести все публикации
+        model.addAttribute("notes", noteService.getAllNotes()); //вывести все публикации
         return "home";
     }
 
     @PostMapping("/notes")
-    public  String home(@RequestParam String key, Model model){
+    public String home(@RequestParam String key, Model model) {
         //действия кнопок
         return "home";
     }

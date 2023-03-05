@@ -17,13 +17,14 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Iterable<Note> getAllNotes() {
-     //   noteRepository.save(new Note("Тема1","Текст 1"));
+        //   noteRepository.save(new Note("Тема1","Текст 1"));
         return noteRepository.findAll();
     }
 
     @Override
-    public void saveNewNote(String subjectNotes, String fullTextNotes) {
-
+    public void saveNewNote(Note note) {
+        Note newNote = new Note(note.getSubjectNotes(), note.getFullTextNotes());
+        noteRepository.save(newNote);
     }
 
     @Override

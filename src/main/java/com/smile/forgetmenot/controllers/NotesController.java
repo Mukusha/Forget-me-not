@@ -1,5 +1,6 @@
 package com.smile.forgetmenot.controllers;
 
+import com.smile.forgetmenot.models.Note;
 import com.smile.forgetmenot.services.NoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,33 +20,39 @@ public class NotesController {
 
     //!
     @GetMapping("/notes/{id}/view")
-    public  String viewNote(@PathVariable(value = "id") long id, Model model){
+    public String viewNote(@PathVariable(value = "id") long id, Model model) {
         return "noteWiev";
     }
+
     //!
     @PostMapping("/notes/{id}/view")
-    public  String viewNote(@PathVariable(value = "id") long id, @RequestParam String key, Model model){
+    public String viewNote(@PathVariable(value = "id") long id, @RequestParam String key, Model model) {
         //действия кнопок
         return "noteWiev";
     }
+
     //!
     @GetMapping("/notes/{id}/edit")
-    public  String editNote(@PathVariable(value = "id") long id,Model model){
+    public String editNote(@PathVariable(value = "id") long id, Model model) {
         return "noteEdit";
     }
+
     //!
     @PostMapping("/notes/{id}/edit")
-    public  String editNote(@PathVariable(value = "id") long id,@RequestParam String key, Model model){
+    public String editNote(@PathVariable(value = "id") long id, @RequestParam String key, Model model) {
         return "noteEdit";
     }
+
     //!
     @GetMapping("/notes/add")
-    public  String addNote(Model model){
+    public String addNote(Model model) {
         return "noteAdd";
     }
+
     //!
     @PostMapping("/notes/add")
-    public  String addNote(@RequestParam String key, Model model){
-        return "noteAdd";
+    public String addNote(Note note, Model model) {
+        noteService.saveNewNote(note);
+        return "redirect:/notes";
     }
 }
