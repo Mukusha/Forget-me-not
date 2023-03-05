@@ -5,6 +5,7 @@ import com.smile.forgetmenot.repositories.NoteRepository;
 import com.smile.forgetmenot.services.NoteService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,8 +31,21 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public void updateNote(Long id, String subjectNotes, String fullTextNotes) {
+    public void updateNote(Long id, Note noteNew) {
+        if(!noteRepository.existsById(id)){ //если такой заметки нет, то ничего не делаем
+            return;
+        }
 
+        Optional<Note> notes = noteRepository.findById(id);
+        ArrayList<Note> res = new ArrayList<>();
+        notes.ifPresent(res::add);
+        Note note = res.get(0);
+
+        note.setSubjectNotes(noteNew.getSubjectNotes());
+        note.setFullTextNotes(noteNew.getFullTextNotes());
+        note.setDateModification(new Timestamp(System.currentTimeMillis()));
+
+        noteRepository.save(note);
     }
 
     @Override

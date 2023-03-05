@@ -23,10 +23,9 @@ public interface NoteService {
      * Обновить заметку
      *
      * @param id            - id редактируемой заметки
-     * @param subjectNotes  - тема
-     * @param fullTextNotes - полный текст
+     * @param note  - заметка
      */
-    void updateNote(Long id, String subjectNotes, String fullTextNotes);
+    void updateNote(Long id,Note note);
 
     /**
      * Возвращает список всех заметок отсортированный определенным образом

@@ -60,9 +60,9 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a type="button" class="btn btn-sm btn-outline-secondary"
-                                   th:href="'/notes/'+${el.id}+'/view'">Посмотреть</a>
+                                   th:href="'/note/'+${el.id}+'/view'">Посмотреть</a>
                                 <a type="button" class="btn btn-sm btn-outline-secondary"
-                                   th:href="'/notes/'+${el.id}+'/edit'">Редактировать</a>
+                                   th:href="'/note/'+${el.id}+'/edit'">Редактировать</a>
                             </div>
                             <small class="text-muted" title="время последнего редактирования"
                                    th:text="${el.dateModification}">время последнего редактирования</small>

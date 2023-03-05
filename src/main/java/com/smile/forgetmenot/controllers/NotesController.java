@@ -18,41 +18,33 @@ public class NotesController {
         this.noteService = noteService;
     }
 
-    //!
-    @GetMapping("/notes/{id}/view")
+    @GetMapping("/note/{id}/view")
     public String viewNote(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("note",noteService.getNoteById(id));
         return "noteWiev";
     }
 
     //!
-    @PostMapping("/notes/{id}/view")
-    public String viewNote(@PathVariable(value = "id") long id, @RequestParam String key, Model model) {
-        //действия кнопок
-
-        return "noteWiev";
-    }
-
-    //!
-    @GetMapping("/notes/{id}/edit")
-    public String editNote(@PathVariable(value = "id") long id, Model model) {
+    @GetMapping("/note/{id}/edit")
+    public String editNoteGet(@PathVariable(value = "id") long id, Model model) {
+        model.addAttribute("note",noteService.getNoteById(id));
         return "noteEdit";
     }
 
     //!
-    @PostMapping("/notes/{id}/edit")
-    public String editNote(@PathVariable(value = "id") long id, @RequestParam String key, Model model) {
-        return "noteEdit";
+    @PostMapping("/note/{id}/edit")
+    public String editNotePost(@PathVariable(value = "id") long id, Note note, Model model) {
+        noteService.updateNote(id,note);
+        return "redirect:/notes";
     }
 
-    //!
-    @GetMapping("/notes/add")
+
+    @GetMapping("/note/add")
     public String addNote(Model model) {
         return "noteAdd";
     }
 
-    //!
-    @PostMapping("/notes/add")
+    @PostMapping("/note/add")
     public String addNote(Note note, Model model) {
         noteService.saveNewNote(note);
         return "redirect:/notes";
