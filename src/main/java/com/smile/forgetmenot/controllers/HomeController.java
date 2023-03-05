@@ -27,6 +27,7 @@ public class HomeController {
     @PostMapping("/notes")
     public String home(@RequestParam String key, Model model) {
         //действия кнопок
+        model.addAttribute("notes", noteService.findKeyInNotes(key)); //поиск по ключу
         return "home";
     }
 }

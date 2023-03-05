@@ -55,7 +55,9 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public List<Note> findKeyInNotes(String key) {
-        return null;
+        List<Note> notesFind;
+        notesFind = noteRepository.findBySubjectNotesContainingIgnoreCaseOrFullTextNotesContainingIgnoreCase(key,key);
+        return notesFind;
     }
 
     @Override
