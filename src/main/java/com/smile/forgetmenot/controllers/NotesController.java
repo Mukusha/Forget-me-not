@@ -21,6 +21,7 @@ public class NotesController {
     //!
     @GetMapping("/notes/{id}/view")
     public String viewNote(@PathVariable(value = "id") long id, Model model) {
+        model.addAttribute("note",noteService.getNoteById(id));
         return "noteWiev";
     }
 
@@ -28,6 +29,7 @@ public class NotesController {
     @PostMapping("/notes/{id}/view")
     public String viewNote(@PathVariable(value = "id") long id, @RequestParam String key, Model model) {
         //действия кнопок
+
         return "noteWiev";
     }
 

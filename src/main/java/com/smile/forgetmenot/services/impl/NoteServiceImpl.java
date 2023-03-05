@@ -5,7 +5,9 @@ import com.smile.forgetmenot.repositories.NoteRepository;
 import com.smile.forgetmenot.services.NoteService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NoteServiceImpl implements NoteService {
@@ -40,5 +42,16 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public List<Note> findKeyInNotes(String key) {
         return null;
+    }
+
+    @Override
+    public Note getNoteById(long id) {
+        if(!noteRepository.existsById(id)){
+            return null;
+        }
+        Optional<Note> notes = noteRepository.findById(id);
+        ArrayList<Note> res = new ArrayList<>();
+        notes.ifPresent(res::add);
+        return res.get(0);
     }
 }

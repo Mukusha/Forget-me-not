@@ -45,4 +45,11 @@ public interface NoteService {
      * @param key - ключ
      */
     List<Note> findKeyInNotes(String key);
+
+    /**
+     * Возвращает заметку по ее id
+     *
+     * @param id - id искомой заметки
+     */
+    Note getNoteById(long id);
 }

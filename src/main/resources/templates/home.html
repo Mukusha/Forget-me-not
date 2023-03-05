@@ -16,11 +16,18 @@
 <div class="container">
 
     <div class="row">
-        <div class="col">
-            <h1>Последние заметки</h1>
+        <div class="col-auto">
+            <h1>Последние заметки
+            </h1>
         </div>
-        <div class="col" style="float: right">
-            <p>кол-во заметок</p>
+
+        <div class="col ">
+            <form action="/notes" method="post" style="float: right">
+                <input name="key" placeholder="Введите ключевые слова " type="text"/>
+                <button type="submit" class="btn btn-outline-success me-2"
+                        title="Поиск осуществляется по теме и полному тексту заметки ">Поиск
+                </button>
+            </form>
         </div>
     </div>
 
@@ -57,8 +64,8 @@
                                 <a type="button" class="btn btn-sm btn-outline-secondary"
                                    th:href="'/notes/'+${el.id}+'/edit'">Редактировать</a>
                             </div>
-                            <small class="text-muted" title="время с последнего редактирования"
-                                   th:text="${el.dateModification}">9 mins</small>
+                            <small class="text-muted" title="время последнего редактирования"
+                                   th:text="${el.dateModification}">время последнего редактирования</small>
                         </div>
                     </div>
                 </div>
