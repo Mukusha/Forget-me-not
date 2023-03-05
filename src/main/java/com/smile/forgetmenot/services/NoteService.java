@@ -51,4 +51,11 @@ public interface NoteService {
      * @param id - id искомой заметки
      */
     Note getNoteById(long id);
+
+    /**
+     * Удаляет заметку по ее id
+     *
+     * @param id - id  заметки
+     */
+    void removeNoteById(long id);
 }

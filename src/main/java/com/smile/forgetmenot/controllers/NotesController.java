@@ -49,4 +49,11 @@ public class NotesController {
         noteService.saveNewNote(note);
         return "redirect:/notes";
     }
+
+    @GetMapping("/note/{id}/delete")
+    public String removeNote(@PathVariable(value = "id") long id, Model model) {
+        noteService.removeNoteById(id);
+        return "redirect:/notes";
+    }
+
 }

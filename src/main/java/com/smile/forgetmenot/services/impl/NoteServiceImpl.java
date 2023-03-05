@@ -68,4 +68,10 @@ public class NoteServiceImpl implements NoteService {
         notes.ifPresent(res::add);
         return res.get(0);
     }
+
+    @Override
+    public void removeNoteById(long id) {
+        Note note=noteRepository.findById(id).orElseThrow();
+        noteRepository.delete(note);
+    }
 }

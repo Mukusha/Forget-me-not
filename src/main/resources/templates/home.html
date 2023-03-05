@@ -48,12 +48,31 @@
                     <img class="card-img-top bg-image"
                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQgNy1zsLn3pur5eIYCEJz-Fb8AJuMJ5KmuB-eSq5q&s">
                     <div class="card-img-overlay">
-                        <a href="#" class="btn btn-outline-warning btn-sm float-end"
-                           data-bs-toggle="popover" data-bs-content="Edit image" data-bs-trigger="hover focus">
-                            <img width=20 height=20
-                                 src="https://e7.pngegg.com/pngimages/131/551/png-clipart-desktop-computer-icons-a-notice-miscellaneous-angle.png">
-                        </a>
+
+                        <div class="row" style="float: right">
+
+                            <a th:href="'/note/'+${el.id}+'/important'" class="btn btn-outline-dark btn-sm" title="пометить как важное"
+                               data-bs-toggle="popover"  data-bs-trigger="hover focus">
+                                <img width=20 height=20
+                                     src="https://e7.pngegg.com/pngimages/131/551/png-clipart-desktop-computer-icons-a-notice-miscellaneous-angle.png">
+                            </a>
+
+
+                        </div>
+                        </br></br>
+                        <div class="row" style="float: right">
+
+                            <a th:href="'/note/'+${el.id}+'/delete'" class="btn btn-outline-dark btn-sm" title="Удалить"
+                               data-bs-toggle="popover"  data-bs-trigger="hover focus">
+                                <img width=20 height=20
+                                     src="https://e7.pngegg.com/pngimages/160/341/png-clipart-rubbish-bins-waste-paper-baskets-recycling-bin-computer-icons-others-miscellaneous-text.png">
+                            </a>
+
+                        </div>
+
+
                     </div>
+
                     <div class="card-body">
                         <h5 class="card-title" th:text="${el.subjectNotes}">Тема</h5>
                         <p class="card-text" th:text="${el.fullTextNotes}">Анонс</p>

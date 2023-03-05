@@ -70,6 +70,7 @@
                 </div>
                 <div class="row" style="float: right">
                     <small class="text-muted align-self-end" title="Дата последнего редактирования" th:text="${note.dateModification}">Дата последнего редактирования</small>
+
                 </div>
 
             </div>
@@ -110,6 +111,13 @@
         </div>
 
         <button type="submit" name="action" value="update">Обновить заметку</button>
+<div style="float: right">
+        <a  th:href="'/note/'+${note.id}+'/delete'" class="btn btn-outline-dark btn-sm" title="Удалить"
+           data-bs-toggle="popover"  data-bs-trigger="hover focus">
+            <img width=20 height=20
+                 src="https://e7.pngegg.com/pngimages/160/341/png-clipart-rubbish-bins-waste-paper-baskets-recycling-bin-computer-icons-others-miscellaneous-text.png">
+        </a>
+</div>
     </form>
 </div>
 </div>
