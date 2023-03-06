@@ -32,11 +32,12 @@ public interface NoteService {
     /**
      * Обновить заметку
      *
-     * @param id            - id редактируемой заметки
-     * @param note  - заметка
+     * @param id          - id редактируемой заметки
+     * @param note        - заметка
      * @param isImportant - важная (true) или нет (null/false)
+     * @param files - картинки
      */
-    void updateNote(Long id,Note note, boolean isImportant);
+    void updateNote(Long id, Note note, boolean isImportant, MultipartFile[] files) throws IOException;
 
     /**
      * Возвращает список всех заметок отсортированный определенным образом

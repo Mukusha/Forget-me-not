@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Set;
 
 @Data
@@ -24,7 +23,8 @@ public class Note {
     @Column(nullable = false)
     private Timestamp dateCreate;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+   // @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Img> images;
     public Note() {
     }
@@ -33,7 +33,7 @@ public class Note {
         this.subjectNotes = subjectNotes;
         this.fullTextNotes = fullTextNotes;
         this.isImportant = isImportant;
-        this.images=images;
+        this.images = images;
         this.dateCreate = new Timestamp(System.currentTimeMillis());
         this.dateModification = this.dateCreate;
     }

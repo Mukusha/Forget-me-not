@@ -76,13 +76,14 @@
 
         </div>
 
-        <div class="col">
+        <div class="col" style="background-color: grey">
 
             <div id="carouselExample" class="carousel slide">
                 <div class="carousel-inner">
                     <div th:each="img : ${note.images}">
-                        <div class="carousel-item active">
-                            <img th:src="'/img/'+${img.filenameImage}" height="450" class="d-block">
+                        <div class="carousel-item active text-center" >
+                            <img th:src="'/img/'+${img.filenameImage}"  style="max-width:550px;max-height:350px;
+  width:auto; height:auto" >
                         </div>
                     </div>
                 </div>

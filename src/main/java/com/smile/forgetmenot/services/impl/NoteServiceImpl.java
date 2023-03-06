@@ -4,12 +4,12 @@ import com.smile.forgetmenot.models.Img;
 import com.smile.forgetmenot.models.Note;
 import com.smile.forgetmenot.repositories.ImgRepository;
 import com.smile.forgetmenot.repositories.NoteRepository;
+import com.smile.forgetmenot.services.ImgServise;
 import com.smile.forgetmenot.services.NoteService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -20,12 +20,11 @@ public class NoteServiceImpl implements NoteService {
     private String uploadPath;
 
     private final NoteRepository noteRepository;
-    private final ImgRepository imgRepository;
-
-    public NoteServiceImpl(NoteRepository noteRepository, ImgRepository imgRepository) {
+    private final ImgServise imgServise;
+    public NoteServiceImpl(NoteRepository noteRepository, ImgServise imgServise) {
 
         this.noteRepository = noteRepository;
-        this.imgRepository = imgRepository;
+        this.imgServise = imgServise;
     }
 
     @Override
@@ -46,31 +45,18 @@ public class NoteServiceImpl implements NoteService {
         Set<Img> images = new HashSet<>();
         //обработка картинки
         for (MultipartFile file : files) {
-            if (file != null && !file.getOriginalFilename().isEmpty()) {
-                File uploadDir = new File(uploadPath);
-
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
-
-                String uuidFile = UUID.randomUUID().toString();
-                String resultFilename = uuidFile + "." + file.getOriginalFilename();
-                file.transferTo(new File(uploadPath + "/" + resultFilename));
-
-                Img image = new Img(resultFilename);
-                imgRepository.save(image);
-                images.add(imgRepository.findByFilenameImage(resultFilename));
+            Img imgNewName = imgServise.saveNewImg(file);
+            if (imgNewName != null ) {
+                images.add(imgNewName);
             }
         }
 
         newNote.setImages(images);
-        System.out.println("images = "+images);
-        System.out.println("newNote = "+newNote);
         noteRepository.save(newNote);
     }
 
     @Override
-    public void updateNote(Long id, Note noteNew, boolean isImportant) {
+    public void updateNote(Long id, Note noteNew, boolean isImportant, MultipartFile[] files) throws IOException {
         if (!noteRepository.existsById(id)) { //если такой заметки нет, то ничего не делаем
             return;
         }
@@ -84,6 +70,19 @@ public class NoteServiceImpl implements NoteService {
         note.setFullTextNotes(noteNew.getFullTextNotes());
         note.setImportant(isImportant);
         note.setDateModification(new Timestamp(System.currentTimeMillis()));
+
+        Set<Img> images = new HashSet<>();
+        //обработка картинки
+        for (MultipartFile file : files) {
+            Img imgNewName = imgServise.saveNewImg(file);
+            if (imgNewName != null ) {
+                images.add(imgNewName);
+            }
+        }
+
+        if(images.size()!=0){
+            imgServise.removeImg(note.getImages());
+            note.setImages(images);}
 
         noteRepository.save(note);
     }
@@ -114,6 +113,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public void removeNoteById(long id) {
         Note note = noteRepository.findById(id).orElseThrow();
+        imgServise.removeImg(note.getImages());
         noteRepository.delete(note);
     }
 
