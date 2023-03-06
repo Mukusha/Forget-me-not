@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**Действия на главной странице*/
 @Controller
 public class HomeController {
 
@@ -18,15 +19,16 @@ public class HomeController {
 
 
     @GetMapping("/notes")
-    public  String home(Model model){
+    public String home(Model model) {
 
-        model.addAttribute("notes",noteService.getAllNotes()); //вывести все публикации
+        model.addAttribute("notes", noteService.getAllNotes()); //вывести все публикации
         return "home";
     }
 
     @PostMapping("/notes")
-    public  String home(@RequestParam String key, Model model){
+    public String home(@RequestParam String key, Model model) {
         //действия кнопок
+        model.addAttribute("notes", noteService.findKeyInNotes(key)); //поиск по ключу
         return "home";
     }
 }
