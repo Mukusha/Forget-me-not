@@ -36,7 +36,7 @@
                         <label class="form-label" name="subjectNotes" th:text="${note.subjectNotes}">Тема</label>
                     </div>
                     <div class="col-auto">
-                        <a th:href="'/note/'+${note.id}+'/important'" class="btn btn-outline-dark btn-sm" title="пометить как важное"
+                        <a th:href="'/note/'+${note.id}+'/view/important'" class="btn btn-outline-dark btn-sm" title="пометить как важное"
                            data-bs-toggle="popover"  data-bs-trigger="hover focus">
                             <img th:if=" ${note.isImportant}" width=20 height=20 src="https://img.icons8.com/color/256/filled-star.png">
                             <img th:if="not  ${note.isImportant}" width=20 height=20 src="https://img.icons8.com/ios/256/christmas-star.png">

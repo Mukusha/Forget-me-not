@@ -26,12 +26,18 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public void saveNewNote(Note note) {
-        Note newNote = new Note(note.getSubjectNotes(), note.getFullTextNotes());
+        Note newNote = new Note(note.getSubjectNotes(), note.getFullTextNotes(),note.isImportant());
         noteRepository.save(newNote);
     }
 
     @Override
-    public void updateNote(Long id, Note noteNew) {
+    public void saveNewNote(Note note, boolean isImportant) {
+        Note newNote = new Note(note.getSubjectNotes(), note.getFullTextNotes(), isImportant);
+        noteRepository.save(newNote);
+    }
+
+    @Override
+    public void updateNote(Long id, Note noteNew,  boolean isImportant) {
         if(!noteRepository.existsById(id)){ //если такой заметки нет, то ничего не делаем
             return;
         }
@@ -43,7 +49,7 @@ public class NoteServiceImpl implements NoteService {
 
         note.setSubjectNotes(noteNew.getSubjectNotes());
         note.setFullTextNotes(noteNew.getFullTextNotes());
-        note.setImportant(noteNew.isImportant());
+        note.setImportant(isImportant);
         note.setDateModification(new Timestamp(System.currentTimeMillis()));
 
         noteRepository.save(note);

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/*Здесь действия осуществляемые с записками: просмотр, редактирование, создание, удаление*/
+/**Здесь действия осуществляемые с записками: просмотр, редактирование, создание, удаление*/
 @Controller
 public class NotesController {
     private final NoteService noteService;
@@ -35,8 +35,10 @@ public class NotesController {
     @PostMapping("/note/{id}/edit")
     public String editNotePost(@PathVariable(value = "id") long id,
                                Note note,
+                               @RequestParam(required=false) Boolean isImportant,
                                Model model) {
-        noteService.updateNote(id,note);
+       if( isImportant ==null) {isImportant=false;}
+        noteService.updateNote(id,note,isImportant);
         return "redirect:/notes";
     }
 
@@ -47,8 +49,11 @@ public class NotesController {
     }
 
     @PostMapping("/note/add")
-    public String addNote(Note note, Model model) {
-        noteService.saveNewNote(note);
+    public String addNote(Note note,
+                          @RequestParam(required=false) Boolean isImportant,
+                          Model model) {
+        if( isImportant ==null) {isImportant=false;}
+        noteService.saveNewNote(note, isImportant);
         return "redirect:/notes";
     }
 
@@ -63,4 +68,11 @@ public class NotesController {
         noteService.setImportantNoteById(id);
         return "redirect:/notes";
     }
+
+    @GetMapping("/note/{id}/view/important")
+    public String importantViewNote(@PathVariable(value = "id") long id) {
+        noteService.setImportantNoteById(id);
+        return "redirect:/note/"+id+"/view";
+    }
+
 }

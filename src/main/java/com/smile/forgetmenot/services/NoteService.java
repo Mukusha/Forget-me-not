@@ -20,12 +20,20 @@ public interface NoteService {
     void saveNewNote(Note note);
 
     /**
+     * Создать новую заметку с указанием важности
+     * @param note - новая заметка
+     * @param isImportant - важная (true) или нет (null/false)
+     */
+    void saveNewNote(Note note, boolean isImportant);
+
+    /**
      * Обновить заметку
      *
      * @param id            - id редактируемой заметки
      * @param note  - заметка
+     * @param isImportant - важная (true) или нет (null/false)
      */
-    void updateNote(Long id,Note note);
+    void updateNote(Long id,Note note, boolean isImportant);
 
     /**
      * Возвращает список всех заметок отсортированный определенным образом
