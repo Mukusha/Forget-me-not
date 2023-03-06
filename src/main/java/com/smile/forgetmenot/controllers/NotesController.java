@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**Здесь действия осуществляемые с записками: просмотр, редактирование, создание, удаление*/
 @Controller
@@ -36,8 +39,10 @@ public class NotesController {
     public String editNotePost(@PathVariable(value = "id") long id,
                                Note note,
                                @RequestParam(required=false) Boolean isImportant,
+                               @RequestParam(name="file", required=false) MultipartFile file,
                                Model model) {
        if( isImportant ==null) {isImportant=false;}
+        System.out.println("file = "+file);
         noteService.updateNote(id,note,isImportant);
         return "redirect:/notes";
     }
@@ -51,9 +56,10 @@ public class NotesController {
     @PostMapping("/note/add")
     public String addNote(Note note,
                           @RequestParam(required=false) Boolean isImportant,
-                          Model model) {
+                          @RequestParam(name="file", required=false) MultipartFile[] file,
+                          Model model) throws IOException {
         if( isImportant ==null) {isImportant=false;}
-        noteService.saveNewNote(note, isImportant);
+        noteService.saveNewNote(note, isImportant, file);
         return "redirect:/notes";
     }
 

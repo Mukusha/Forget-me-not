@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Set;
 
 @Data
 @Entity
@@ -22,7 +24,18 @@ public class Note {
     @Column(nullable = false)
     private Timestamp dateCreate;
 
+    @OneToMany
+    private Set<Img> images;
     public Note() {
+    }
+
+    public Note(String subjectNotes, String fullTextNotes,  boolean isImportant, Set<Img> images) {
+        this.subjectNotes = subjectNotes;
+        this.fullTextNotes = fullTextNotes;
+        this.isImportant = isImportant;
+        this.images=images;
+        this.dateCreate = new Timestamp(System.currentTimeMillis());
+        this.dateModification = this.dateCreate;
     }
 
     public Note(String subjectNotes, String fullTextNotes,  boolean isImportant) {

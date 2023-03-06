@@ -13,7 +13,7 @@
 
 <div class="container">
     <h1>Новая заметка</h1>
-    <form action="/note/add" method="post">
+    <form method="post" enctype="multipart/form-data">
 
             <div class="row">
                 <div class="col">
@@ -58,9 +58,14 @@
                         </br>
 
                         <div class="mb-3">
-                            <label for="formFileMultiple" class="form-label">Выберите файлы - пока не
-                                реализовано</label>
-                            <input class="form-control" type="file" id="formFileMultiple" multiple>
+                            <label for="formFileMultiple" class="form-label">Добавить изображения </label>
+                            <input
+                                    class="form-control"
+                                    type="file"
+                                    id="formFileMultiple"
+                                    name="file"
+                                    accept=".jpg, .jpeg, .png"
+                                    multiple />
                         </div>
 
                         </br>
