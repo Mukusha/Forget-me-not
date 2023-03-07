@@ -58,9 +58,8 @@
                     </br>
 
                     <div class="mb-3">
-                        <label for="formFileMultiple" class="form-label">Выберите файлы - пока не
-                            реализовано</label>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        <label for="formFileMultiple" class="form-label">Выберите файлы - поменяются все файлы!!!</label>
+                        <input class="form-control" type="file" name="file" id="formFileMultiple" multiple>
                     </div>
 
                     </br>
@@ -74,22 +73,15 @@
             </div>
 
 
-            <div class="col">
+            <div class="col" style="background-color: grey">
 
                 <div id="carouselExample" class="carousel slide">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="https://mobimg.b-cdn.net/v3/fetch/94/94c56e15f13f1de4740a76742b0b594f.jpeg"
-                                 class="d-block w-100">
-                        </div>
-                        <div class="carousel-item">
-
-                            <img src="https://avatars.mds.yandex.net/i?id=8f10cac86dd848f5a66c86a5fdded132c709c5db-8497407-images-thumbs&n=13"
-                                 class="d-block w-100">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://avatars.mds.yandex.net/i?id=65283d80c3ad25ed35a43da05013de072127ce16-8496938-images-thumbs&n=13"
-                                 class="d-block w-100">
+                        <div th:each="img : ${note.images}">
+                            <div class="carousel-item active text-center">
+                                <img th:src="'/img/'+${img.filenameImage}" style="max-width:550px;max-height:350px;
+  width:auto; height:auto" >
+                            </div>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"

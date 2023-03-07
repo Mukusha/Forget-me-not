@@ -20,7 +20,6 @@ public class HomeController {
 
     @GetMapping("/notes")
     public String home(Model model) {
-
         model.addAttribute("notes", noteService.getAllNotes()); //вывести все публикации
         return "home";
     }

@@ -1,6 +1,7 @@
 package com.smile.forgetmenot.controllers;
 
 import com.smile.forgetmenot.models.Note;
+import com.smile.forgetmenot.services.ImgServise;
 import com.smile.forgetmenot.services.NoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,26 +9,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-/**Здесь действия осуществляемые с записками: просмотр, редактирование, создание, удаление*/
+import java.io.IOException;
+
+/**
+ * Здесь действия осуществляемые с записками: просмотр, редактирование, создание, удаление
+ */
 @Controller
 public class NotesController {
     private final NoteService noteService;
+    private final ImgServise imgServise;
 
-    public NotesController(NoteService noteService) {
+    public NotesController(NoteService noteService, ImgServise imgServise) {
         this.noteService = noteService;
+        this.imgServise = imgServise;
     }
 
     @GetMapping("/note/{id}/view")
     public String viewNote(@PathVariable(value = "id") long id, Model model) {
-        model.addAttribute("note",noteService.getNoteById(id));
+        model.addAttribute("note", noteService.getNoteById(id));
         return "noteWiev";
     }
 
     //!
     @GetMapping("/note/{id}/edit")
     public String editNoteGet(@PathVariable(value = "id") long id, Model model) {
-        model.addAttribute("note",noteService.getNoteById(id));
+        model.addAttribute("note", noteService.getNoteById(id));
         return "noteEdit";
     }
 
@@ -35,10 +43,13 @@ public class NotesController {
     @PostMapping("/note/{id}/edit")
     public String editNotePost(@PathVariable(value = "id") long id,
                                Note note,
-                               @RequestParam(required=false) Boolean isImportant,
-                               Model model) {
-       if( isImportant ==null) {isImportant=false;}
-        noteService.updateNote(id,note,isImportant);
+                               @RequestParam(required = false) Boolean isImportant,
+                               @RequestParam(name = "file", required = false) MultipartFile[] files,
+                               Model model) throws IOException {
+        if (isImportant == null) {
+            isImportant = false;
+        }
+        noteService.updateNote(id, note, isImportant, files);
         return "redirect:/notes";
     }
 
@@ -50,10 +61,14 @@ public class NotesController {
 
     @PostMapping("/note/add")
     public String addNote(Note note,
-                          @RequestParam(required=false) Boolean isImportant,
-                          Model model) {
-        if( isImportant ==null) {isImportant=false;}
-        noteService.saveNewNote(note, isImportant);
+                          @RequestParam(required = false) Boolean isImportant,
+                          @RequestParam(name = "file", required = false) MultipartFile[] file,
+                          Model model) throws IOException {
+
+        if (isImportant == null) {
+            isImportant = false;
+        }
+        noteService.saveNewNote(note, isImportant, file);
         return "redirect:/notes";
     }
 
@@ -72,7 +87,7 @@ public class NotesController {
     @GetMapping("/note/{id}/view/important")
     public String importantViewNote(@PathVariable(value = "id") long id) {
         noteService.setImportantNoteById(id);
-        return "redirect:/note/"+id+"/view";
+        return "redirect:/note/" + id + "/view";
     }
 
 }

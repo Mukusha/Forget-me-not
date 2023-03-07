@@ -42,11 +42,10 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div th:each="el : ${notes}">
 
-
             <div class="col">
-                <div class="card shadow-sm">
-                    <img class="card-img-top bg-image"
-                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQgNy1zsLn3pur5eIYCEJz-Fb8AJuMJ5KmuB-eSq5q&s">
+                <div th:if="${not #lists.isEmpty(el.images)}"  class="card shadow-sm" >
+                    <img class="card-img-top bg-image" style="max-height: 100px;  object-fit: cover"
+                         th:src="'/img/'+${el.images[0].filenameImage}">
                     <div class="card-img-overlay">
 
                         <div class="row" style="float: right">
@@ -68,8 +67,6 @@
                             </a>
 
                         </div>
-
-
                     </div>
 
                     <div class="card-body">
@@ -87,6 +84,42 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div th:if="${ #lists.isEmpty(el.images)}" class="card shadow-sm" style="height: 200px;" >
+                    <div class="card-body">
+                        <div class="row" style="float: right">
+                            <a th:href="'/note/'+${el.id}+'/important'" class="btn btn-outline-dark btn-sm" title="пометить как важное"
+                               data-bs-toggle="popover"  data-bs-trigger="hover focus">
+                                <img th:if=" ${el.isImportant}" width=20 height=20 src="https://img.icons8.com/color/256/filled-star.png">
+                                <img th:if="not  ${el.isImportant}" width=20 height=20 src="https://img.icons8.com/ios/256/christmas-star.png">
+                            </a>
+                        </div>
+
+                        <h5 class="card-title " th:text="${el.subjectNotes}">Тема</h5></br>
+
+                        <div class="row" style="float: right">
+                            <a th:href="'/note/'+${el.id}+'/delete'" class="btn btn-outline-dark btn-sm" title="Удалить"
+                               data-bs-toggle="popover"  data-bs-trigger="hover focus">
+                                <img width=20 height=20 src="https://img.icons8.com/material-outlined/256/delete-trash.png">
+                            </a>
+                        </div>
+
+                        <p class="card-text  " style="max-width: 400px;" th:text="${el.fullTextNotes}">Анонс</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a type="button" class="btn btn-sm btn-outline-secondary"
+                                   th:href="'/note/'+${el.id}+'/view'">Посмотреть</a>
+                                <a type="button" class="btn btn-sm btn-outline-secondary"
+                                   th:href="'/note/'+${el.id}+'/edit'">Редактировать</a>
+                            </div>
+                            <small class="text-muted" title="время последнего редактирования"
+                                   th:text="${el.dateModification}">время последнего редактирования</small>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
 
 

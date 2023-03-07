@@ -2,7 +2,9 @@ package com.smile.forgetmenot.services;
 
 import com.smile.forgetmenot.models.Note;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -23,17 +25,19 @@ public interface NoteService {
      * Создать новую заметку с указанием важности
      * @param note - новая заметка
      * @param isImportant - важная (true) или нет (null/false)
+     * @param files - картинки
      */
-    void saveNewNote(Note note, boolean isImportant);
+    void saveNewNote(Note note, boolean isImportant,  MultipartFile[] files) throws IOException;
 
     /**
      * Обновить заметку
      *
-     * @param id            - id редактируемой заметки
-     * @param note  - заметка
+     * @param id          - id редактируемой заметки
+     * @param note        - заметка
      * @param isImportant - важная (true) или нет (null/false)
+     * @param files - картинки
      */
-    void updateNote(Long id,Note note, boolean isImportant);
+    void updateNote(Long id, Note note, boolean isImportant, MultipartFile[] files) throws IOException;
 
     /**
      * Возвращает список всех заметок отсортированный определенным образом
