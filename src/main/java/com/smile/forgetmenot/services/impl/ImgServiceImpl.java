@@ -59,8 +59,8 @@ public class ImgServiceImpl implements ImgServise {
     public void removeImg(Set<Img> images) {
         for (Img image: images) {
             File oldImage = new File(uploadPath+ "/" + image.getFilenameImage());
+            imgRepository.delete(image); //!почему-то не работает!
             oldImage.delete();
-            imgRepository.deleteById(image.getId());
         }
     }
 }

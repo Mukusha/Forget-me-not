@@ -2,7 +2,6 @@ package com.smile.forgetmenot.services.impl;
 
 import com.smile.forgetmenot.models.Img;
 import com.smile.forgetmenot.models.Note;
-import com.smile.forgetmenot.repositories.ImgRepository;
 import com.smile.forgetmenot.repositories.NoteRepository;
 import com.smile.forgetmenot.services.ImgServise;
 import com.smile.forgetmenot.services.NoteService;
@@ -29,7 +28,6 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Iterable<Note> getAllNotes() {
-        //   noteRepository.save(new Note("Тема1","Текст 1"));
         return noteRepository.findAll();
     }
 
@@ -81,8 +79,10 @@ public class NoteServiceImpl implements NoteService {
         }
 
         if(images.size()!=0){
-            imgServise.removeImg(note.getImages());
-            note.setImages(images);}
+            Set<Img> oldImg = note.getImages();
+            note.setImages(images);
+            imgServise.removeImg(oldImg); //удалить старые
+        }
 
         noteRepository.save(note);
     }
@@ -113,8 +113,10 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public void removeNoteById(long id) {
         Note note = noteRepository.findById(id).orElseThrow();
-        imgServise.removeImg(note.getImages());
-        noteRepository.delete(note);
+
+        Set<Img> delImg=note.getImages();
+        noteRepository.deleteById(note.getId());
+        imgServise.removeImg(delImg);
     }
 
     @Override

@@ -23,8 +23,7 @@ public class Note {
     @Column(nullable = false)
     private Timestamp dateCreate;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-   // @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Img> images;
     public Note() {
     }

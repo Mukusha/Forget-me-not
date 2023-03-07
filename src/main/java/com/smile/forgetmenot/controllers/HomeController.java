@@ -20,8 +20,6 @@ public class HomeController {
 
     @GetMapping("/notes")
     public String home(Model model) {
-
-        System.out.println("notes = "+noteService.getAllNotes());
         model.addAttribute("notes", noteService.getAllNotes()); //вывести все публикации
         return "home";
     }
