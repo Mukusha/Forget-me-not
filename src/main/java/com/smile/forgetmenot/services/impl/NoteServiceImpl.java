@@ -20,6 +20,8 @@ public class NoteServiceImpl implements NoteService {
 
     private final NoteRepository noteRepository;
     private final ImgServise imgServise;
+    //private String typeSort = "modification";
+    private TypeSort typeSort = TypeSort.modification;
     public NoteServiceImpl(NoteRepository noteRepository, ImgServise imgServise) {
 
         this.noteRepository = noteRepository;
@@ -88,9 +90,14 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public List<Note> getSortListNotes(String typeSort) {
-        return null;
+    public List<Note> getSortListNotes() {
+        System.out.println("get tSort = "+typeSort);
+      //  if(typeSort == "modification") {           }
+        if(typeSort.equals(TypeSort.modification)) {   return noteRepository.findAllByOrderByDateModificationDesc();      }
+        if(typeSort.equals(TypeSort.abc)) { return noteRepository.findAllByOrderBySubjectNotes();    }
+        return noteRepository.findAllByOrderByIdDesc();
     }
+
 
     @Override
     public List<Note> findKeyInNotes(String key) {
@@ -125,4 +132,15 @@ public class NoteServiceImpl implements NoteService {
         note.setImportant(!note.isImportant());
         noteRepository.save(note);
     }
+
+    @Override
+    public void changeTypeSort(String typSort) {
+        System.out.println("changeTypeSort d "+typeSort.toString());
+        if(typSort != null && typSort.equals("create")) {  typeSort=TypeSort.create;      }
+        if(typSort != null && typSort.equals("abc")) {  typeSort=TypeSort.abc;      }
+        if(typSort != null && typSort.equals("modification")){  typeSort=TypeSort.modification;      }
+        System.out.println("changeTypeSort p "+typeSort.toString());
+    }
+
+
 }

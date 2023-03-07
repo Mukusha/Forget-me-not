@@ -41,14 +41,8 @@ public interface NoteService {
 
     /**
      * Возвращает список всех заметок отсортированный определенным образом
-     *
-     * @param typeSort - тип сортировки:
-     *                 modification - по дате изменения
-     *                 create - по дате создания
-     *                 abc - по алфавиту
-     *                 color - по цвету
      */
-    List<Note> getSortListNotes(String typeSort);
+    List<Note> getSortListNotes();
 
     /**
      * Возвращает список заметок в которых найден ключ
@@ -77,4 +71,13 @@ public interface NoteService {
      * @param id - id  заметки
      */
     void setImportantNoteById(long id);
+    /**
+     * Задать сортировку на главной странице
+
+     * @param typeSort - тип сортировки:
+     *                 modification - по дате изменения
+     *                 create - по дате создания
+     *                 abc - по алфавиту
+     */
+    void changeTypeSort(String typeSort);
 }

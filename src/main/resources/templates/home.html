@@ -14,29 +14,31 @@
 
 
 <div class="container">
-
+    <form method="post" enctype="multipart/form-data" >
     <div class="row">
         <div class="col-auto">
             <h1>Последние заметки
             </h1>
         </div>
 
-        <div class="col ">
-            <form action="/notes" method="post" style="float: right">
-                <input name="key" placeholder="Введите ключевые слова " type="text"/>
-                <button type="submit" class="btn btn-outline-success me-2"
+        <div class="col " >
+            <div style="float: right">
+                <input name="key" placeholder="Введите ключевые слова " type="text" />
+                <button name="action" value="findBtn" type="submit" class="btn btn-outline-success me-2"
                         title="Поиск осуществляется по теме и полному тексту заметки ">Поиск
                 </button>
-            </form>
+            </div>
         </div>
+
     </div>
 
-    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option selected>Сортировка по дате изменения</option>
-        <option value="1">Сортировка по дате создания</option>
-        <option value="2">Сортировка по алфавиту</option>
-        <option value="3">Сортировка по цвету</option>
-    </select>
+        <select class="selectpicker" id ="sort" name ="sort" >
+            <option  value="modification" selected > Сортировка по дате изменения</option>
+            <option  value="create" >Сортировка по дате создания</option>
+            <option  value="abc">Сортировка по алфавиту</option>
+        </select>
+         <button name="action" value="sortBtn" type="submit" class="btn btn-outline-success me-2">Сортировать</button>
+
     </br>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -125,6 +127,7 @@
 
         </div>
     </div>
+    </form>
 </div>
 
 
