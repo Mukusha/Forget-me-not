@@ -14,31 +14,36 @@
 
 
 <div class="container">
-
-    <div class="row">
+    <form method="post" enctype="multipart/form-data" >
+    <div class="row" style="align-items:center">
         <div class="col-auto">
             <h1>Последние заметки
             </h1>
         </div>
 
-        <div class="col ">
-            <form action="/notes" method="post" style="float: right">
-                <input name="key" placeholder="Введите ключевые слова " type="text"/>
-                <button type="submit" class="btn btn-outline-success me-2"
+        <div class="col " >
+            <div style="float: right">
+                <input name="key" placeholder="Введите ключевые слова " type="text" />
+                <button name="action" value="findBtn" type="submit" class="btn btn-outline-success me-2"
                         title="Поиск осуществляется по теме и полному тексту заметки ">Поиск
                 </button>
-            </form>
+            </div>
         </div>
+
     </div>
 
-    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option selected>Сортировка по дате изменения</option>
-        <option value="1">Сортировка по дате создания</option>
-        <option value="2">Сортировка по алфавиту</option>
-        <option value="3">Сортировка по цвету</option>
-    </select>
-    </br>
-
+        <div>
+        <select class="form-select-sm me-2" id ="sort" name ="sort" >
+            <option  value="modification" selected > Сортировка по дате изменения</option>
+            <option  value="create" >Сортировка по дате создания</option>
+            <option  value="abc">Сортировка по алфавиту</option>
+        </select>
+         <button name="action" value="sortBtn" type="submit" class="btn btn-sm btn-outline-success me-2">Сортировать</button>
+         <button name="action" value="sortImportant" type="submit" class="btn btn-sm btn-outline-success me-2">
+             <img width=20 height=20 src="https://img.icons8.com/color/256/filled-star.png">
+         </button>
+        </div>
+        </br>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div th:each="el : ${notes}">
 
@@ -71,7 +76,7 @@
 
                     <div class="card-body">
                         <h5 class="card-title " th:text="${el.subjectNotes}">Тема</h5>
-                        <p class="card-text  text-truncate" style="max-width: 400px;" th:text="${el.fullTextNotes}">Анонс</p>
+                        <p class="card-text text-truncate" style="max-width: 400px;" th:text="${el.fullTextNotes}">Анонс</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a type="button" class="btn btn-sm btn-outline-secondary"
@@ -105,7 +110,7 @@
                             </a>
                         </div>
 
-                        <p class="card-text  " style="max-width: 400px;" th:text="${el.fullTextNotes}">Анонс</p>
+                        <p class="card-text  text-truncate" style="max-width: 400px;" th:text="${el.fullTextNotes}">Анонс</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a type="button" class="btn btn-sm btn-outline-secondary"
@@ -125,6 +130,7 @@
 
         </div>
     </div>
+    </form>
 </div>
 
 

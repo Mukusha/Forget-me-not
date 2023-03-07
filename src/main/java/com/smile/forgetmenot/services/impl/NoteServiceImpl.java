@@ -3,9 +3,8 @@ package com.smile.forgetmenot.services.impl;
 import com.smile.forgetmenot.models.Img;
 import com.smile.forgetmenot.models.Note;
 import com.smile.forgetmenot.repositories.NoteRepository;
-import com.smile.forgetmenot.services.ImgServise;
+import com.smile.forgetmenot.services.ImgService;
 import com.smile.forgetmenot.services.NoteService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,15 +14,13 @@ import java.util.*;
 
 @Service
 public class NoteServiceImpl implements NoteService {
-    @Value("${upload.path}")
-    private String uploadPath;
-
     private final NoteRepository noteRepository;
-    private final ImgServise imgServise;
-    public NoteServiceImpl(NoteRepository noteRepository, ImgServise imgServise) {
+    private final ImgService imgService;
+    private TypeSort typeSort = TypeSort.modification;
 
+    public NoteServiceImpl(NoteRepository noteRepository, ImgService imgService) {
         this.noteRepository = noteRepository;
-        this.imgServise = imgServise;
+        this.imgService = imgService;
     }
 
     @Override
@@ -32,24 +29,18 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public void saveNewNote(Note note) {
-        Note newNote = new Note(note.getSubjectNotes(), note.getFullTextNotes(), note.isImportant());
-        noteRepository.save(newNote);
-    }
-
-    @Override
     public void saveNewNote(Note note, boolean isImportant, MultipartFile[] files) throws IOException {
         Note newNote = new Note(note.getSubjectNotes(), note.getFullTextNotes(), isImportant);
         Set<Img> images = new HashSet<>();
         //обработка картинки
         for (MultipartFile file : files) {
-            Img imgNewName = imgServise.saveNewImg(file);
-            if (imgNewName != null ) {
+            Img imgNewName = imgService.saveNewImg(file);
+            if (imgNewName != null) {
                 images.add(imgNewName);
             }
         }
-
         newNote.setImages(images);
+
         noteRepository.save(newNote);
     }
 
@@ -72,24 +63,30 @@ public class NoteServiceImpl implements NoteService {
         Set<Img> images = new HashSet<>();
         //обработка картинки
         for (MultipartFile file : files) {
-            Img imgNewName = imgServise.saveNewImg(file);
-            if (imgNewName != null ) {
+            Img imgNewName = imgService.saveNewImg(file);
+            if (imgNewName != null) {
                 images.add(imgNewName);
             }
         }
 
-        if(images.size()!=0){
+        if (images.size() != 0) {
             Set<Img> oldImg = note.getImages();
             note.setImages(images);
-            imgServise.removeImg(oldImg); //удалить старые
+            imgService.removeImg(oldImg); //удалить старые
         }
 
         noteRepository.save(note);
     }
 
     @Override
-    public List<Note> getSortListNotes(String typeSort) {
-        return null;
+    public List<Note> getSortListNotes() {
+        if (typeSort.equals(TypeSort.modification)) {
+            return noteRepository.findAllByOrderByDateModificationDesc();
+        }
+        if (typeSort.equals(TypeSort.abc)) {
+            return noteRepository.findAllByOrderBySubjectNotes();
+        }
+        return noteRepository.findAllByOrderByIdDesc();
     }
 
     @Override
@@ -114,9 +111,9 @@ public class NoteServiceImpl implements NoteService {
     public void removeNoteById(long id) {
         Note note = noteRepository.findById(id).orElseThrow();
 
-        Set<Img> delImg=note.getImages();
+        Set<Img> delImg = note.getImages();
         noteRepository.deleteById(note.getId());
-        imgServise.removeImg(delImg);
+        imgService.removeImg(delImg);
     }
 
     @Override
@@ -125,4 +122,27 @@ public class NoteServiceImpl implements NoteService {
         note.setImportant(!note.isImportant());
         noteRepository.save(note);
     }
+
+    @Override
+    public void changeTypeSort(String typSort) {
+        if (typSort != null && typSort.equals("create")) {
+            typeSort = TypeSort.create;
+        }
+        if (typSort != null && typSort.equals("abc")) {
+            typeSort = TypeSort.abc;
+        }
+        if (typSort != null && typSort.equals("modification")) {
+            typeSort = TypeSort.modification;
+        }
+    }
+
+    @Override
+    public List<Note> getNotesImportant() {
+        List<Note> listImportantNote = noteRepository.findByIsImportantOrderByDateModificationDesc(true);
+        List<Note> listNotImportantNote = noteRepository.findByIsImportantOrderByDateModificationDesc(false);
+        listImportantNote.addAll(listNotImportantNote);
+        return listImportantNote;
+    }
+
+
 }

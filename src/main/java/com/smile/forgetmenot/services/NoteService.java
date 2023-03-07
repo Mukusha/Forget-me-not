@@ -10,16 +10,9 @@ import java.util.List;
 @Component
 public interface NoteService {
     /**
-     * Возвращает список всех заметок
+     * Возвращает не отсортированный список всех заметок
      */
     Iterable<Note> getAllNotes();
-
-    /**
-     * Создать новую заметку
-     *
-     * @param note - новая заметка
-     */
-    void saveNewNote(Note note);
 
     /**
      * Создать новую заметку с указанием важности
@@ -41,14 +34,8 @@ public interface NoteService {
 
     /**
      * Возвращает список всех заметок отсортированный определенным образом
-     *
-     * @param typeSort - тип сортировки:
-     *                 modification - по дате изменения
-     *                 create - по дате создания
-     *                 abc - по алфавиту
-     *                 color - по цвету
      */
-    List<Note> getSortListNotes(String typeSort);
+    List<Note> getSortListNotes();
 
     /**
      * Возвращает список заметок в которых найден ключ
@@ -77,4 +64,18 @@ public interface NoteService {
      * @param id - id  заметки
      */
     void setImportantNoteById(long id);
+    /**
+     * Задать сортировку на главной странице
+
+     * @param typeSort - тип сортировки:
+     *                 modification - по дате изменения
+     *                 create - по дате создания
+     *                 abc - по алфавиту
+     */
+    void changeTypeSort(String typeSort);
+    /**
+     * Вывести список отсортированный по важности: сначала важные по дате модификации,
+     * а потом не отмеченные тоже отсортированные по дате модификации
+     */
+    List<Note> getNotesImportant();
 }
