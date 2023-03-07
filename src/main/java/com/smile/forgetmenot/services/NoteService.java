@@ -80,4 +80,9 @@ public interface NoteService {
      *                 abc - по алфавиту
      */
     void changeTypeSort(String typeSort);
+    /**
+     * Вывести список отсортированный по важности: сначала важные по дате модификации,
+     * а потом не отмеченные тоже отсортированные по дате модификации
+     */
+    List<Note> getNotesImportant();
 }

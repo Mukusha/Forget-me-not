@@ -24,7 +24,6 @@ public class HomeController {
 
     @GetMapping("/notes")
     public String homeGet(Model model) {
-        //  System.out.println("get = "+sort);
         model.addAttribute("notes", noteService.getSortListNotes()); //вывести все публикации
         return "home";
     }
@@ -42,12 +41,15 @@ public class HomeController {
             return "home";
         }
         if (action != null && action.equals("sortBtn")) {//сортировка
-            System.out.println("sortBtn + sort = " + sort);
             noteService.changeTypeSort(sort);
             model.addAttribute("notes", noteService.getSortListNotes());
             return "home";
         }
-        System.out.println("никуда");
+        if (action != null && action.equals("sortImportant")) {
+            model.addAttribute("notes", noteService.getNotesImportant());
+            return "home";
+        }
+
         return "redirect:/notes";
     }
 }

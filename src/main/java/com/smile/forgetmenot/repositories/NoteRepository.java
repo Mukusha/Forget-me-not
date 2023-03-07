@@ -10,4 +10,5 @@ public interface NoteRepository extends CrudRepository<Note,Long> {
     List<Note>  findAllByOrderBySubjectNotes();
     List<Note>  findAllByOrderByDateModificationDesc();
     List<Note> findBySubjectNotesContainingIgnoreCaseOrFullTextNotesContainingIgnoreCase(String SubjectNotes, String FullTextNotes);
+    List<Note>  findByIsImportantOrderByDateModificationDesc(boolean IsImportant);
 }

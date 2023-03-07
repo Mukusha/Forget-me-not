@@ -142,5 +142,13 @@ public class NoteServiceImpl implements NoteService {
         System.out.println("changeTypeSort p "+typeSort.toString());
     }
 
+    @Override
+    public List<Note> getNotesImportant() {
+       List<Note> listImportantNote=noteRepository.findByIsImportantOrderByDateModificationDesc(true);
+       List<Note> listNotImportantNote=noteRepository.findByIsImportantOrderByDateModificationDesc(false);
+       listImportantNote.addAll(listNotImportantNote);
+        return listImportantNote;
+    }
+
 
 }
