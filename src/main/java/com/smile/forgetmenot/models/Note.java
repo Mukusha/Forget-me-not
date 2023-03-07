@@ -11,12 +11,11 @@ import java.util.Set;
 @Table(name = "notes")
 public class Note {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String subjectNotes;
     @Column(length=2048)
     private String fullTextNotes;
-
     private boolean isImportant;
     @Column(nullable = false)
     private Timestamp dateModification;

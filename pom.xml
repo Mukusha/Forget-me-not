@@ -44,6 +44,11 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
+		<!-- Миграция -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
 		<!-- Временный! пока идет разработка выключаем кеширование -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
