@@ -10,16 +10,9 @@ import java.util.List;
 @Component
 public interface NoteService {
     /**
-     * Возвращает список всех заметок
+     * Возвращает не отсортированный список всех заметок
      */
     Iterable<Note> getAllNotes();
-
-    /**
-     * Создать новую заметку
-     *
-     * @param note - новая заметка
-     */
-    void saveNewNote(Note note);
 
     /**
      * Создать новую заметку с указанием важности

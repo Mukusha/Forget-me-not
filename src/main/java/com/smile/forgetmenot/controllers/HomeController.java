@@ -33,8 +33,6 @@ public class HomeController {
                        @RequestParam(value = "action", required = false) String action,
                        @RequestParam String key,
                        Model model) {
-        System.out.println("sort = " + sort);
-        System.out.println("action = " + action);
         //действия кнопок
         if (action != null && action.equals("findBtn")) {
             model.addAttribute("notes", noteService.findKeyInNotes(key)); //поиск по ключу

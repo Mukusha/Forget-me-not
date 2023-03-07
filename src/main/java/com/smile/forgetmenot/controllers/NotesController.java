@@ -1,7 +1,6 @@
 package com.smile.forgetmenot.controllers;
 
 import com.smile.forgetmenot.models.Note;
-import com.smile.forgetmenot.services.ImgServise;
 import com.smile.forgetmenot.services.NoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +18,9 @@ import java.io.IOException;
 @Controller
 public class NotesController {
     private final NoteService noteService;
-    private final ImgServise imgServise;
 
-    public NotesController(NoteService noteService, ImgServise imgServise) {
+    public NotesController(NoteService noteService) {
         this.noteService = noteService;
-        this.imgServise = imgServise;
     }
 
     @GetMapping("/note/{id}/view")
@@ -32,20 +29,17 @@ public class NotesController {
         return "noteWiev";
     }
 
-    //!
     @GetMapping("/note/{id}/edit")
     public String editNoteGet(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("note", noteService.getNoteById(id));
         return "noteEdit";
     }
 
-    //!
     @PostMapping("/note/{id}/edit")
     public String editNotePost(@PathVariable(value = "id") long id,
                                Note note,
                                @RequestParam(required = false) Boolean isImportant,
-                               @RequestParam(name = "file", required = false) MultipartFile[] files,
-                               Model model) throws IOException {
+                               @RequestParam(name = "file", required = false) MultipartFile[] files) throws IOException {
         if (isImportant == null) {
             isImportant = false;
         }
@@ -53,17 +47,15 @@ public class NotesController {
         return "redirect:/notes";
     }
 
-
     @GetMapping("/note/add")
-    public String addNote(Model model) {
+    public String addNote() {
         return "noteAdd";
     }
 
     @PostMapping("/note/add")
     public String addNote(Note note,
                           @RequestParam(required = false) Boolean isImportant,
-                          @RequestParam(name = "file", required = false) MultipartFile[] file,
-                          Model model) throws IOException {
+                          @RequestParam(name = "file", required = false) MultipartFile[] file) throws IOException {
 
         if (isImportant == null) {
             isImportant = false;
@@ -73,7 +65,7 @@ public class NotesController {
     }
 
     @GetMapping("/note/{id}/delete")
-    public String removeNote(@PathVariable(value = "id") long id, Model model) {
+    public String removeNote(@PathVariable(value = "id") long id) {
         noteService.removeNoteById(id);
         return "redirect:/notes";
     }
