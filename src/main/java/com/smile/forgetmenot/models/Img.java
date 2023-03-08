@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "images")
 public class Img {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String filenameImage;//  наименование картинки
     public Img() {}

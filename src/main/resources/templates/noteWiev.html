@@ -62,7 +62,10 @@
 
 
             <div class="row" style="float: right">
-                <small class="text-muted align-self-end" title="Дата последнего редактирования" th:text="${note.dateModification}">Дата последнего редактирования</small>
+
+                <small class="text-muted" title="дата последнего редактирования"
+                       th:text="${#dates.format(note.dateModification, 'dd-MM-yyyy HH:mm')}">Дата последнего редактирования</small>
+
                 <a th:href="'/note/'+${note.id}+'/delete'" class="btn btn-outline-dark btn-sm" title="Удалить"
                    data-bs-toggle="popover"  data-bs-trigger="hover focus">
                     <img width=20 height=20
