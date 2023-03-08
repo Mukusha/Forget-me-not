@@ -1,4 +1,4 @@
-# Веб приложение заметки "Незабудка"
+# Web-приложение заметки "Незабудка"
 написано на языке **Java**
 
 **Возможности:**
@@ -9,13 +9,36 @@
 
 ✔ Сохранение заметки между сеансами приложения, при помощи PostgreSQL.
 
- При первом запуске, приложение имеет одну заметку с текстом.
+✔ При первом запуске, приложение имеет одну заметку с текстом.
 
 ✔ Есть возможность помечать важные заметки.
 
 ✔ К заметкам можно добавлять картинки
 
 ✔ Выбор нужной сортировки на главном экране
+
+**<details><summary>Для старта приложения надо внести корректировки </summary>**
+
+В **Postgresql** надо создать базу **forgetMeNot** 
+
+В **application.properties** ввести данные для подключения **Postgresql** и указать в какой папке будут храниться изображения
+
+```java
+# SQL
+spring.datasource.url=jdbc:postgresql://localhost/forgetMeNot
+spring.datasource.username=#Ввести свой логин от postgresql
+spring.datasource.password=#Ввести свой пароль от postgresq
+```
+
+```java
+# storing a profile photo
+upload.path=# задать свою деректорию для сохранения изображений. Например: /C:/photo
+# file size limit (can be deleted)
+spring.servlet.multipart.max-file-size=5000KB 
+spring.servlet.multipart.max-request-size=5000KB
+```
+</details>
+
 
 **<details><summary>Скриншоты приложения</summary>**
 
@@ -36,26 +59,9 @@
 
 </details>
 
-**<details><summary>Для старта приложения надо внести корректировки в application.properties</summary>**
-
-```java
-# SQL
-spring.datasource.url=jdbc:postgresql://localhost/forgetMeNot #если хочется можно поменять название БД
-spring.datasource.username=#Ввести свой логин от postgresql
-spring.datasource.password=#Ввести свой пароль от postgresq
-```
-
-```java
-# storing a profile photo
-upload.path=# задать свою деректорию для сохранения изображений. Например: /C:/photo
-# file size limit (can be deleted)
-spring.servlet.multipart.max-file-size=5000KB 
-spring.servlet.multipart.max-request-size=5000KB
-```
-</details>
 
 **Стек технологий**
 
-IntelliJ IDEA,Maven, Spring, PostgreSql, Bootstrap, Thymeleaf.
+IntelliJ IDEA,Maven, Spring, PostgreSql, Bootstrap, Thymeleaf, Flyway.
 
 
