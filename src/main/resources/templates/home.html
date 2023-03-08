@@ -85,7 +85,7 @@
                                    th:href="'/note/'+${el.id}+'/edit'">Редактировать</a>
                             </div>
                             <small class="text-muted" title="время последнего редактирования"
-                                   th:text="${el.dateModification}">время последнего редактирования</small>
+                                   th:text="${#dates.format(el.dateModification, 'dd-MM-yyyy HH:mm')}">время последнего редактирования</small>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                                    th:href="'/note/'+${el.id}+'/edit'">Редактировать</a>
                             </div>
                             <small class="text-muted" title="время последнего редактирования"
-                                   th:text="${el.dateModification}">время последнего редактирования</small>
+                                   th:text="${#dates.format(el.dateModification, 'dd-MM-yyyy HH:mm')}">время последнего редактирования</small>
                         </div>
                     </div>
                 </div>

@@ -63,8 +63,8 @@
 
                 </div>
                 <div class="row" style="float: right">
-                    <small class="text-muted align-self-end" title="Дата последнего редактирования" th:text="${note.dateModification}">Дата последнего редактирования</small>
-
+                    <small class="text-muted" title="дата последнего редактирования"
+                           th:text="${#dates.format(note.dateModification, 'dd-MM-yyyy HH:mm')}">дата последнего редактирования</small>
                 </div>
 
             </div>
